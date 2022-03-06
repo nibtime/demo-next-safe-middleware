@@ -1,12 +1,12 @@
-import '../styles/globals.css';
 import Script from 'next/script';
-import Link from 'next/link';
+import globalStyles from 'styles/globalStyles';
 
 const customInlineScriptBefore = `console.log('Hi I am inline-script running with strategy beforeInteractive')`;
 
 const customInlineScriptAfter = `console.log('Hi I am an inline-script running with strategy afterInteractive')`;
 
 function MyApp({ Component, pageProps }) {
+  globalStyles();
   return (
     <>
       <Script
@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }) {
         // the script will get assigned a nonce for Nonce-based CSP routes
         // the integrity attribute will be picked up for Hash-based CSP routes
         integrity="sha384-WkFzsrcXKeJ3KlWNXojDiim8rplIj1RPsCbuv7dsLECoXY8C6Cx158CMgl+O+QKW"
-        // crossOrigin attribute gets dropped by Next somehow which leads to a CORS error with integrity. Add it with data-crossorigin in this case, will be picked up
+        // crossOrigin attribute gets dropped by Next during prerendering which will lead to a CORS error when validating integrity that blocks the script. Add it with data-crossorigin
         data-crossorigin="anonymous"
       />
       <Script
@@ -39,16 +39,7 @@ function MyApp({ Component, pageProps }) {
       >
         {customInlineScriptAfter}
       </Script>
-      <div className="max-w-5xl mx-auto p-12">
-        <div className="space-y-12">
-          <nav className="text-2xl text-blue-700 font-bold">
-            <a href="/">Home</a>
-          </nav>
-          <div className="flex justify-center">
-            <Component {...pageProps} />
-          </div>
-        </div>
-      </div>
+      <Component {...pageProps} />
     </>
   );
 }
