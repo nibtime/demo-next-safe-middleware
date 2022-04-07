@@ -1,7 +1,6 @@
 import Prose from 'components/Prose';
 import Container from 'components/Container';
 import Hydrated from 'components/Hydrated';
-import Link from 'next/link';
 
 // pages without a data fetching function are static pages and must use a Hash-based CSP.
 const Page = () => {
@@ -21,14 +20,13 @@ const Page = () => {
         <h2>Prerendering strategies:</h2>
         <ul>
           <li>
-            <a href="/static-page">Page with getStaticProps</a> (Hash-based)
+            <a href="/gsp">Page with getStaticProps</a> (Hash-based)
           </li>
           <li>
-            <a href="/dynamic-page">Page with getServerSideProps</a>{' '}
-            (Nonce-based)
+            <a href="/gssp">Page with getServerSideProps</a> (Nonce-based)
           </li>
           <li>
-            <a href="/isr/lazy-slug">
+            <a href="/isr/anyslug">
               Page with getStaticProps + <code>revalidate</code> (ISR)
             </a>{' '}
             (Hash-based)
